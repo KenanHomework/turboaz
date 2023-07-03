@@ -1,0 +1,25 @@
+.container {
+    @apply cursor-pointer w-[20px];
+}
+
+.container input {
+    @apply hidden;
+}
+
+.container svg {
+    @apply overflow-visible;
+}
+
+.path {
+    @apply fill-none stroke-[white] stroke-[6];
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+    stroke-dasharray: 241 9999999;
+    stroke-dashoffset: 0;
+}
+
+.container input:checked ~ svg .path {
+    stroke-dasharray: 70.5096664428711 9999999;
+    stroke-dashoffset: -262.2723388671875;
+}

@@ -1,0 +1,14 @@
+@keyframes slideInRight {
+    from {
+        margin-left: -50px;
+    }
+    to {
+        margin-left: 0;
+
+    }
+}
+
+.sticky-animation {
+    animation-name: slideInRight;
+    animation-duration: 0.5s;
+}
