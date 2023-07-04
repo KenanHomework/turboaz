@@ -1,10 +1,13 @@
 import Search from "../../components/search/index.js";
 import SectionTitle from "../../components/section-title/index.js";
 import LastListings from "../../components/last-listings/index.js";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
 
 const Autos = () => {
-  const location = useLocation();
+  const navigate = useNavigate();
+
   const queryParams = new URLSearchParams(location.search);
 
   const query = queryParams.get("query");
@@ -19,11 +22,11 @@ const Autos = () => {
 
     queryParams += `sort=${option.type}`;
 
-    window.location = `/autos?${queryParams}`;
+    navigate(`/autos?${queryParams}`);
   }
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div className={" "}>
         <Search value={query || ""} />
         <SectionTitle title={"Son Elanlar"} />
@@ -34,7 +37,7 @@ const Autos = () => {
           currentOption={sortType}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -3,6 +3,7 @@ import CarCard from "../car-card/index.js";
 import Dropdown from "../dropdown/index.js";
 import Notfound from "../notfound/index.js";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
 const CardContainer = ({
   cars,
@@ -19,8 +20,20 @@ const CardContainer = ({
       />
     );
   }
+
+  const container = {
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
   return (
-    <div
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={container}
       className={
         "flex flex-col h-fit items-center mx-auto w-[970px] px-5 box-content gap-4   justify-between text-white  my-3"
       }
@@ -62,7 +75,7 @@ const CardContainer = ({
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,17 +1,20 @@
 import SearchInput from "../search-input/index.js";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Search = ({ value = "" }) => {
   const lastListingCount = 1198;
   const [searchValue, setSearchValue] = useState(value);
   const isSearchValueEmpty = searchValue.length <= 0;
+  const navigate = useNavigate();
   const handleInputChange = (event) => {
     setSearchValue(event.target.value);
   };
 
   const handleSearch = () => {
-    window.location = `/autos?query=${searchValue}`;
+    navigate(`/autos?query=${searchValue}`);
   };
   const resetInput = () => {
     setSearchValue("");
@@ -40,11 +43,11 @@ const Search = ({ value = "" }) => {
             {/*Statistic*/}
             <div className={"flex gap-2"}>
               <span className={"text-second-text"}>Bu gün:</span>
-              <a href="/autos">
+              <Link to="/autos">
                 <span className={"text-blue-400 underline-animation"}>
                   {lastListingCount} yeni elan
                 </span>
-              </a>
+              </Link>
             </div>
             {/*Action*/}
             <div className={"flex items-center gap-4"}>
@@ -59,8 +62,8 @@ const Search = ({ value = "" }) => {
                 Sıfırla
               </button>
               {/*Search*/}
-              <a
-                href={
+              <Link
+                to={
                   isSearchValueEmpty ? "/autos" : `/autos?query=${searchValue}`
                 }
                 className={
@@ -68,7 +71,7 @@ const Search = ({ value = "" }) => {
                 }
               >
                 Elanları göstər
-              </a>
+              </Link>
             </div>
           </div>
         </div>

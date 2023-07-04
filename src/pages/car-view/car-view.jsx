@@ -4,6 +4,7 @@ import LastListings from "../../components/last-listings/index.js";
 import CarViewContent from "../../components/car-view-content/index.js";
 import CarViewContentHeader from "../../components/car-view-content-header/index.js";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const CarView = () => {
   const { id } = useParams();
@@ -217,12 +218,16 @@ const CarView = () => {
   }, []);
 
   return (
-    <div className={"bg-component-bg"}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className={"bg-component-bg"}
+    >
       <CarViewInfoHeader car={car} />
       <CarViewContentHeader car={car} />
       <CarViewContent car={car} />
       <LastListings isVisibleSectionTitle={true} />
-    </div>
+    </motion.div>
   );
 };
 

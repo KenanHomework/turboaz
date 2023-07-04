@@ -1,4 +1,5 @@
 import "./header.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -7,21 +8,21 @@ const Header = () => {
       <div className={"tz-inner-container h-[60px]"}>
         {/*Brand Area*/}
         <div className={"flex items-center "}>
-          <a className="w-[120px]  float-left" href={"/"}>
+          <Link className="w-[120px]  float-left" to={"/"}>
             <img
               width="94"
               height="14"
               alt="turbo.az"
               src="https://turbo.azstatic.com/assets/logo-67bbb214ce91649f92ed6036eba7e52c29f3e56614a8d1404283b4c23c5878d6.svg"
             />
-          </a>
-          <a href="/autos" className={"underline-animation"}>
+          </Link>
+          <Link to="/autos" className={"underline-animation"}>
             Bütün Elanlar
-          </a>
+          </Link>
         </div>
         {/*New Car*/}
-        <a
-          href={"/autos/new"}
+        <Link
+          to={"/autos/new"}
           className="flex items-center  content-center hover:bg-btn-hover-green hover:text-white bg-btn-green h-[40px] px-2 rounded-lg cursor-pointer text-slate-200 transition-all duration-200 ease-in-out"
         >
           <svg
@@ -37,7 +38,7 @@ const Header = () => {
             />
           </svg>
           Yeni elan
-        </a>
+        </Link>
       </div>
     </div>
   );

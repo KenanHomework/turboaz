@@ -21,9 +21,7 @@ const CarViewContent = ({ car }) => {
       >
         {/*Content*/}
         <div className={" w-[640px]"}>
-          <div className={"w-full h-[567px] "}>
-            <CarViewContentPhoto car={car} />
-          </div>
+          <CarViewContentPhoto car={car} />
           <CarViewContentPropertiesContainer car={car} />
           {car.vin && <CarViewContentVinCard car={car} />}
           <CarViewContentDescription car={car} />

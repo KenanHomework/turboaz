@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const CarCard = ({
   id,
@@ -12,6 +14,8 @@ const CarCard = ({
   city,
   updateDate,
 }) => {
+  const navigate = useNavigate();
+
   function divideNumber(price) {
     const str = price.toString();
     const parts = [];
@@ -24,12 +28,23 @@ const CarCard = ({
     return parts.join(" ");
   }
 
+  const item = {
+    hidden: { translateY: 20, opacity: 0 },
+    visible: {
+      translateY: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <a
-      href={`/autos/${id}`}
+    <motion.div
+      onClick={() => {
+        navigate(`/autos/${id}`);
+      }}
+      variants={item}
       target={"_blank"}
       className={
-        "w-56 h-72 bg-component-bg rounded-lg hover:shadow-2xl hover:shadow-slate-700 transition-all duration-75  "
+        "w-56 h-72 bg-component-bg rounded-lg hover:shadow-2xl hover:shadow-slate-700 transition-all duration-75 cursor-pointer "
       }
     >
       {/*Image*/}
@@ -67,7 +82,7 @@ const CarCard = ({
           {city},{updateDate}
         </div>
       </div>
-    </a>
+    </motion.div>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "./car-view-content-header.css";
+import { Link } from "react-router-dom";
 
 const CarViewContentHeader = ({ car }) => {
   const { vendor, model, engineVolume, year, mileage } = car;
@@ -35,8 +36,8 @@ const CarViewContentHeader = ({ car }) => {
           className="flex items-center gap-2 justify-center"
           ref={animationParent}
         >
-          <a
-            href="/"
+          <Link
+            to="/"
             className={` bg-cover ${
               isSticky
                 ? "visible sticky-animation  w-[42px] h-[42px] mr-[10px]"

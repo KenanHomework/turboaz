@@ -1,13 +1,17 @@
-import SectionTitle from "../../components/section-title/index.js";
 import LastListings from "../../components/last-listings/index.js";
 import Search from "../../components/search/index.js";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
   return (
-    <div className={" "}>
+    <motion.div
+      className={" "}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <Search />
       <LastListings carCount={32} />
-    </div>
+    </motion.div>
   );
 };
 
