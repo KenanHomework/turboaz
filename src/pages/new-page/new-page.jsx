@@ -1,14 +1,17 @@
 import SectionTitle from "../../components/section-title/index.js";
-import TextInput from "../../components/text-input/index.js";
-import InputLine from "../../components/input-line/index.js";
-import ComboboxInput from "../../components/combobox-input/index.js";
-import NumericInput from "../../components/numeric-input/index.js";
-import TextareaInput from "../../components/textarea-input/index.js";
-import SelectInput from "../../components/select-input/index.js";
-import ImageInput from "../../components/image-input/index.js";
-import OwnerForm from "../../components/owner-form/index.js";
+import TextInput from "../../components/form/text-input/index.js";
+import InputLine from "../../components/form/input-line/index.js";
+import ComboboxInput from "../../components/form/combobox-input/index.js";
+import NumericInput from "../../components/form/numeric-input/index.js";
+import TextareaInput from "../../components/form/textarea-input/index.js";
+import SelectInput from "../../components/form/select-input/index.js";
+import ImageInput from "../../components/form/image-input/index.js";
+import OwnerForm from "../../components/form/owner-form/index.js";
+import { motion } from "framer-motion";
 
 const NewPage = () => {
+  document.title = "Turbo.Az - Avtomobilləri buradan seçirlər";
+
   function gerYearsAsJsonOptions() {
     const currentYear = new Date().getFullYear();
     const options = [{ value: "", title: "" }];
@@ -61,13 +64,15 @@ const NewPage = () => {
       { value: "16000", title: "16000" },
     ];
 
-    const mergedoptions = [...options, ...endOptions];
-
-    return mergedoptions;
+    return [...options, ...endOptions];
   }
 
   return (
-    <div className={"tz-container bg-component-bg  flex-col"}>
+    <motion.div
+      className={"tz-container bg-component-bg  flex-col"}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <SectionTitle title={"ELAN YERLƏŞDİRMƏK"} />
 
       <div className={"tz-inner-container "}>
@@ -275,22 +280,7 @@ const NewPage = () => {
                 "Oturacaqların ventilyasiyası",
               ]}
             />
-            <ImageInput
-              defaultImages={[
-                {
-                  index: 0,
-                  url: "https://turbo.azstatic.com/assets/shared/car-preview-sprite-8a5413186d73379a08a1b8fad266ac0bf956990fc849d7a8815727e700622896.svg#front",
-                },
-                {
-                  index: 1,
-                  url: "https://turbo.azstatic.com/assets/shared/car-preview-sprite-8a5413186d73379a08a1b8fad266ac0bf956990fc849d7a8815727e700622896.svg#back",
-                },
-                {
-                  index: 2,
-                  url: "https://turbo.azstatic.com/assets/shared/car-preview-sprite-8a5413186d73379a08a1b8fad266ac0bf956990fc849d7a8815727e700622896.svg#dashboard",
-                },
-              ]}
-            />
+            <ImageInput onOrderChange={() => {}} />
             <OwnerForm />
             <div className={"text-sm text-dark-text"}>
               Elan yerləşdirərək, siz Turbo.az-ın{" "}
@@ -310,7 +300,7 @@ const NewPage = () => {
           </form>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

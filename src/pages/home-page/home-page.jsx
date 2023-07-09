@@ -3,6 +3,7 @@ import Search from "../../components/search/index.js";
 import { motion } from "framer-motion";
 
 const HomePage = () => {
+  document.title = "Turbo.Az - Avtomobilləri buradan seçirlər";
   return (
     <motion.div
       className={" "}

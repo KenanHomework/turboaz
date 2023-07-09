@@ -14,7 +14,7 @@ const Notfound = ({ title, description }) => {
       {/*Details*/}
       <div className={"flex-col w-full items-center justify-start"}>
         {/*Title*/}
-        <div className={"mb-8 text-lg font-medium text-second-text"}>
+        <div className={"mb-3 text-lg font-medium text-second-text"}>
           {title}
         </div>
         {/*Description*/}

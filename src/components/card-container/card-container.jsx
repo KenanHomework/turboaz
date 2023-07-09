@@ -1,6 +1,6 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CarCard from "../car-card/index.js";
-import Dropdown from "../dropdown/index.js";
+import Dropdown from "../form/dropdown/index.js";
 import Notfound from "../notfound/index.js";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";

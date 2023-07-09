@@ -1,6 +1,8 @@
 import CardContainer from "../card-container/index.js";
 import PropTypes from "prop-types";
 import SectionTitle from "../section-title/index.js";
+import CarsApi from "../../../api/CarsApi.js";
+import { useEffect, useState } from "react";
 
 const LastListings = ({
   carCount = 12,
@@ -9,22 +11,17 @@ const LastListings = ({
   optionChange,
   currentOption,
 }) => {
-  const cars = [];
-  for (let i = 0; i < carCount; i++) {
-    cars.push({
-      id: "7485580",
-      price: 288000,
-      hasVin: i % 2 === 0,
-      title: "BMW XM",
-      year: 2023,
-      engineVolume: 2.2,
-      mileage: 0,
-      city: "Bakı",
-      updateDate: "19.06.2023 20:14",
-      imageLink:
-        "https://turbo.azstatic.com/uploads/full/2023%2F06%2F19%2F19%2F52%2F40%2F60a0f564-ab10-4bd8-b816-8c4bd39bb3f1%2F40793_B2AeNymLfy1RrqY9h7F3IQ.jpg",
-    });
-  }
+  const api = new CarsApi();
+
+  const [cars, setCars] = useState([]);
+  const fetchData = () => {
+    api.getLastListings(carCount).then(setCars);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className={"bg-primary-bg"}>
       {isVisibleSectionTitle && (
