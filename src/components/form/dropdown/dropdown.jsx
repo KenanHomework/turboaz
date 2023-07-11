@@ -62,7 +62,7 @@ export default function Dropdown({ sortOptions, optionChange, currentOption }) {
                           ? "font-medium text-second-text"
                           : "text-dark-text",
                         active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm hover:bg-gray-700 transition-all duration-150"
+                        "block px-4 py-2 text-sm hover:bg-gray-700 transition-all duration-150 cursor-pointer select-none"
                       )}
                       onClick={() => handleOptionClick(option)}
                     >

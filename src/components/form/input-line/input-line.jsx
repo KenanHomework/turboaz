@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const InputLine = ({ left, right }) => {
   return (
-    <div className={" w-full mb-5 flex justify-between items-center"}>
+    <div className={" w-full h-fit mb-5 flex justify-between items-center"}>
       {left}
       {right}
     </div>

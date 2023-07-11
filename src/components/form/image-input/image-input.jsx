@@ -1,17 +1,19 @@
 import ComponentTitle from "../../component-title/index.js";
 import PondImageCard from "../pond-image-card/index.js";
 import PondImagesAddButton from "../pond-images-add-button/index.js";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import PropTypes from "prop-types";
 import { ReactSortable } from "react-sortablejs";
+import { ErrorMessage, useField } from "formik";
 
-const ImageInput = ({ maxImagesCount = 21, onOrderChange }) => {
+const ImageInput = ({ maxImagesCount = 21, name }) => {
+  const [field] = useField(name);
+
   const [animationParent] = useAutoAnimate();
 
   const [actionIndex, setActionIndex] = useState(0);
   const [images, setImages] = useState([]);
-
   const titles = ["Ön görünüşü", "Arxa görünüşü", "Ön panel"];
 
   const handleUploadImages = (imageIndex) => {
@@ -24,6 +26,10 @@ const ImageInput = ({ maxImagesCount = 21, onOrderChange }) => {
       ...images.slice(0, index),
       ...images.slice(index + 1),
     ];
+    convertToBase64(filteredImages).then((data) => {
+      field.onChange({ target: { name: name, value: data } });
+    });
+
     setImages(filteredImages);
   };
 
@@ -39,7 +45,34 @@ const ImageInput = ({ maxImagesCount = 21, onOrderChange }) => {
       ...uploadImages,
       ...images.slice(actionIndex + 1),
     ];
+
+    console.log("mergedImages: " + mergedImages);
+    convertToBase64(mergedImages).then((data) => {
+      field.onChange({ target: { name: name, value: data } });
+    });
+
     setImages(mergedImages);
+  };
+
+  const convertToBase64 = async (images) => {
+    const imageDataArray = [];
+
+    for (const blobUrl of images) {
+      const response = await fetch(blobUrl);
+      const blob = await response.blob();
+
+      // Blob verisini FileReader kullanarak Base64 formatına dönüştürüyoruz
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        imageDataArray.push(base64data);
+      };
+
+      reader.readAsDataURL(blob);
+    }
+
+    return imageDataArray;
   };
 
   function handleAddImages() {
@@ -47,14 +80,14 @@ const ImageInput = ({ maxImagesCount = 21, onOrderChange }) => {
     document.getElementById("fileInput").click();
   }
 
-  useEffect(() => {
-    onOrderChange(images);
-  }, [images]);
-
   return (
     <div className={"w-full flex-col my-8"} ref={animationParent}>
       <ComponentTitle title={"Şəkillər"} />
-
+      <ErrorMessage
+        name={field.name}
+        component={"small"}
+        className={"text-xs block mt-2 text-tz-red-text"}
+      />
       <input
         className={"hidden"}
         type={"file"}
@@ -185,7 +218,7 @@ const ImageInput = ({ maxImagesCount = 21, onOrderChange }) => {
 
 ImageInput.propTypes = {
   maxImagesCount: PropTypes.number,
-  onOrderChange: PropTypes.func,
+  name: PropTypes.string,
 };
 
 const CustomComponent = forwardRef((props, ref) => {

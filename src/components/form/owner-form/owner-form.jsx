@@ -1,92 +1,97 @@
 import ComponentTitle from "../../component-title/index.js";
 import TextInput from "../text-input/index.js";
 import ComboboxInput from "../combobox-input/index.js";
+import { useField } from "formik";
+import PropTypes from "prop-types";
 
-const OwnerForm = () => {
+const OwnerForm = ({ name }) => {
   const cities = [
     { value: "", title: "" },
-    { value: "7", title: "Ağcabədi" },
-    { value: "4", title: "Ağdam" },
-    { value: "6", title: "Ağdaş" },
-    { value: "5", title: "Ağdərə" },
-    { value: "8", title: "Ağstafa" },
-    { value: "10", title: "Ağsu" },
-    { value: "9", title: "Astara" },
-    { value: "78", title: "Babək" },
-    { value: "1", title: "Bakı" },
-    { value: "14", title: "Balakən" },
-    { value: "13", title: "Beyləqan" },
-    { value: "12", title: "Bərdə" },
-    { value: "15", title: "Biləsuvar" },
-    { value: "26", title: "Cəbrayıl" },
-    { value: "25", title: "Cəlilabad" },
-    { value: "27", title: "Culfa" },
-    { value: "24", title: "Daşkəsən" },
-    { value: "23", title: "Dəliməmmədli" },
-    { value: "60", title: "Füzuli" },
-    { value: "36", title: "Gədəbəy" },
-    { value: "2", title: "Gəncə" },
-    { value: "18", title: "Goranboy" },
-    { value: "17", title: "Göyçay" },
-    { value: "19", title: "Göygöl" },
-    { value: "20", title: "Göytəpə" },
-    { value: "77", title: "Hacıqabul" },
-    { value: "22", title: "Horadiz" },
-    { value: "32", title: "İmişli" },
-    { value: "33", title: "İsmayıllı" },
-    { value: "37", title: "Kəlbəcər" },
-    { value: "41", title: "Kürdəmir" },
-    { value: "42", title: "Laçın" },
-    { value: "43", title: "Lerik" },
-    { value: "11", title: "Lənkəran" },
-    { value: "44", title: "Liman" },
-    { value: "45", title: "Masallı" },
-    { value: "46", title: "Mingəçevir" },
-    { value: "47", title: "Naftalan" },
-    { value: "48", title: "Naxçıvan" },
-    { value: "49", title: "Neftçala" },
-    { value: "50", title: "Oğuz" },
-    { value: "51", title: "Ordubad" },
-    { value: "35", title: "Qax" },
-    { value: "34", title: "Qazax" },
-    { value: "16", title: "Qəbələ" },
-    { value: "21", title: "Qobustan" },
-    { value: "38", title: "Quba" },
-    { value: "39", title: "Qubadlı" },
-    { value: "40", title: "Qusar" },
-    { value: "52", title: "Saatlı" },
-    { value: "53", title: "Sabirabad" },
-    { value: "68", title: "Şabran" },
-    { value: "71", title: "Şahbuz" },
-    { value: "54", title: "Salyan" },
-    { value: "73", title: "Şamaxı" },
-    { value: "55", title: "Samux" },
-    { value: "72", title: "Şəki" },
-    { value: "69", title: "Şəmkir" },
-    { value: "70", title: "Şərur" },
-    { value: "74", title: "Şirvan" },
-    { value: "56", title: "Siyəzən" },
-    { value: "3", title: "Sumqayıt" },
-    { value: "75", title: "Şuşa" },
-    { value: "58", title: "Tərtər" },
-    { value: "57", title: "Tovuz" },
-    { value: "59", title: "Ucar" },
-    { value: "62", title: "Xaçmaz" },
-    { value: "61", title: "Xankəndi" },
-    { value: "67", title: "Xırdalan" },
-    { value: "66", title: "Xızı" },
-    { value: "64", title: "Xocalı" },
-    { value: "63", title: "Xocavənd" },
-    { value: "65", title: "Xudat" },
-    { value: "76", title: "Yardımlı" },
-    { value: "28", title: "Yevlax" },
-    { value: "29", title: "Zaqatala" },
-    { value: "30", title: "Zəngilan" },
-    { value: "31", title: "Zərdab" },
+    { value: "Ağcabədi", title: "Ağcabədi" },
+    { value: "Ağdam", title: "Ağdam" },
+    { value: "Ağdaş", title: "Ağdaş" },
+    { value: "Ağdərə", title: "Ağdərə" },
+    { value: "Ağstafa", title: "Ağstafa" },
+    { value: "Ağsu", title: "Ağsu" },
+    { value: "Astara", title: "Astara" },
+    { value: "Babək", title: "Babək" },
+    { value: "Bakı", title: "Bakı" },
+    { value: "Balakən", title: "Balakən" },
+    { value: "Beyləqan", title: "Beyləqan" },
+    { value: "Bərdə", title: "Bərdə" },
+    { value: "Biləsuvar", title: "Biləsuvar" },
+    { value: "Cəbrayıl", title: "Cəbrayıl" },
+    { value: "Cəlilabad", title: "Cəlilabad" },
+    { value: "Culfa", title: "Culfa" },
+    { value: "Daşkəsən", title: "Daşkəsən" },
+    { value: "Dəliməmmədli", title: "Dəliməmmədli" },
+    { value: "Füzuli", title: "Füzuli" },
+    { value: "Gədəbəy", title: "Gədəbəy" },
+    { value: "Gəncə", title: "Gəncə" },
+    { value: "Goranboy", title: "Goranboy" },
+    { value: "Göyçay", title: "Göyçay" },
+    { value: "Göygöl", title: "Göygöl" },
+    { value: "Göytəpə", title: "Göytəpə" },
+    { value: "Hacıqabul", title: "Hacıqabul" },
+    { value: "Horadiz", title: "Horadiz" },
+    { value: "İmişli", title: "İmişli" },
+    { value: "İsmayıllı", title: "İsmayıllı" },
+    { value: "Kəlbəcər", title: "Kəlbəcər" },
+    { value: "Kürdəmir", title: "Kürdəmir" },
+    { value: "Laçın", title: "Laçın" },
+    { value: "Lerik", title: "Lerik" },
+    { value: "Lənkəran", title: "Lənkəran" },
+    { value: "Liman", title: "Liman" },
+    { value: "Masallı", title: "Masallı" },
+    { value: "Mingəçevir", title: "Mingəçevir" },
+    { value: "Naftalan", title: "Naftalan" },
+    { value: "Naxçıvan", title: "Naxçıvan" },
+    { value: "Neftçala", title: "Neftçala" },
+    { value: "Oğuz", title: "Oğuz" },
+    { value: "Ordubad", title: "Ordubad" },
+    { value: "Qax", title: "Qax" },
+    { value: "Qazax", title: "Qazax" },
+    { value: "Qəbələ", title: "Qəbələ" },
+    { value: "Qobustan", title: "Qobustan" },
+    { value: "Quba", title: "Quba" },
+    { value: "Qubadlı", title: "Qubadlı" },
+    { value: "Qusar", title: "Qusar" },
+    { value: "Saatlı", title: "Saatlı" },
+    { value: "Sabirabad", title: "Sabirabad" },
+    { value: "Şabran", title: "Şabran" },
+    { value: "Şahbuz", title: "Şahbuz" },
+    { value: "Salyan", title: "Salyan" },
+    { value: "Şamaxı", title: "Şamaxı" },
+    { value: "Samux", title: "Samux" },
+    { value: "Şəki", title: "Şəki" },
+    { value: "Şəmkir", title: "Şəmkir" },
+    { value: "Şərur", title: "Şərur" },
+    { value: "Şirvan", title: "Şirvan" },
+    { value: "Siyəzən", title: "Siyəzən" },
+    { value: "Sumqayıt", title: "Sumqayıt" },
+    { value: "Şuşa", title: "Şuşa" },
+    { value: "Tərtər", title: "Tərtər" },
+    { value: "Tovuz", title: "Tovuz" },
+    { value: "Ucar", title: "Ucar" },
+    { value: "Xaçmaz", title: "Xaçmaz" },
+    { value: "Xankəndi", title: "Xankəndi" },
+    { value: "Xırdalan", title: "Xırdalan" },
+    { value: "Xızı", title: "Xızı" },
+    { value: "Xocalı", title: "Xocalı" },
+    { value: "Xocavənd", title: "Xocavənd" },
+    { value: "Xudat", title: "Xudat" },
+    { value: "Yardımlı", title: "Yardımlı" },
+    { value: "Yevlax", title: "Yevlax" },
+    { value: "Zaqatala", title: "Zaqatala" },
+    { value: "Zəngilan", title: "Zəngilan" },
+    { value: "Zərdab", title: "Zərdab" },
   ];
-
+  const [nameField] = useField(`${name}.name`);
+  const [cityField] = useField(`${name}.city`);
+  const [emailField] = useField(`${name}.email`);
+  const [phoneNumberField] = useField(`${name}.phoneNumber`);
   return (
-    <div className={"w-full flex-col my-8"}>
+    <div className={"w-full flex-col mt-8"}>
       <ComponentTitle
         title={"Əlaqə"}
         hint={
@@ -94,24 +99,26 @@ const OwnerForm = () => {
         }
       />
       <div className={"flex flex-col gap-4"}>
-        <TextInput title={"Adınız"} isRequired={true} />
-        <ComboboxInput title={"Şəhər"} isRequired={true} options={cities} />
-        <TextInput title={"Email"} isRequired={true} />
-        <TextInput title={"Telefon nömrəsi"} isRequired={true} />
-        <div className={"w-[460px] flex justify-end "}>
-          <div></div>
-          <button
-            type="button"
-            className={
-              "py-[15px] w-72 px-10  bg-tz-red hover:bg-tz-red-hover-dark rounded-lg text-sm transition-all duration-150"
-            }
-          >
-            Elanları göstər
-          </button>
-        </div>
+        <TextInput {...nameField} title={"Adınız"} isRequired={true} />
+        <ComboboxInput
+          {...cityField}
+          title={"Şəhər"}
+          isRequired={true}
+          options={cities}
+        />
+        <TextInput {...emailField} title={"Email"} isRequired={true} />
+        <TextInput
+          {...phoneNumberField}
+          title={"Telefon nömrəsi"}
+          isRequired={true}
+        />
       </div>
     </div>
   );
+};
+
+OwnerForm.propTypes = {
+  name: PropTypes.string,
 };
 
 export default OwnerForm;

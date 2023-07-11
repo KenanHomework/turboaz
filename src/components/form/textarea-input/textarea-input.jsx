@@ -1,6 +1,16 @@
 import PropTypes from "prop-types";
+import { useField } from "formik";
 
-const TextareaInput = ({ value, title, isRequired, placeholder, hint }) => {
+const TextareaInput = ({
+  value,
+  title,
+  isRequired,
+  placeholder,
+  hint,
+  ...props
+}) => {
+  const [field] = useField(props);
+
   return (
     <div className={"w-full h-fit flex items-center justify-start "}>
       <div className={"w-[175px] block"}>
@@ -9,6 +19,8 @@ const TextareaInput = ({ value, title, isRequired, placeholder, hint }) => {
       </div>
       <div className={"flex-col w-[785px] mr-[10px]"}>
         <textarea
+          {...field}
+          {...props}
           value={value}
           placeholder={placeholder}
           className={
