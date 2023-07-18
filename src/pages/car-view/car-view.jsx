@@ -6,15 +6,23 @@ import CarViewContentHeader from "../../components/pages/car-view/car-view-conte
 import { motion } from "framer-motion";
 import ApiService from "../../../api/CarsApi.js";
 import Notfound from "../../components/notfound/index.js";
+import { useEffect, useState } from "react";
 
 const CarView = () => {
   const { id } = useParams();
-  console.log("id:" + id);
   const api = new ApiService();
+  const [car, setCar] = useState(null);
 
-  let car = api.getCar(id);
+  useEffect(() => {
+    api.getCar(id).then((response) => {
+      setCar(response);
+    });
+    window.scrollTo(0, 0);
+  }, [id]);
 
-  if (!car) {
+  console.log(car);
+
+  if (!car || car === undefined || car === null) {
     document.title = "Elan tapılmadı - Turbo.Az";
 
     return (

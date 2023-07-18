@@ -46,7 +46,6 @@ const ImageInput = ({ maxImagesCount = 21, name }) => {
       ...images.slice(actionIndex + 1),
     ];
 
-    console.log("mergedImages: " + mergedImages);
     convertToBase64(mergedImages).then((data) => {
       field.onChange({ target: { name: name, value: data } });
     });
@@ -61,7 +60,6 @@ const ImageInput = ({ maxImagesCount = 21, name }) => {
       const response = await fetch(blobUrl);
       const blob = await response.blob();
 
-      // Blob verisini FileReader kullanarak Base64 formatına dönüştürüyoruz
       const reader = new FileReader();
 
       reader.onloadend = () => {
@@ -94,7 +92,7 @@ const ImageInput = ({ maxImagesCount = 21, name }) => {
         id={"fileInput"}
         name="img"
         multiple
-        accept={"image/ .jpg,.png,.jpeg"}
+        accept={"image/ .jpg,.png,.jpeg,.jpg,"}
         onChange={uploadImages}
       />
 

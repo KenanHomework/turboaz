@@ -89,7 +89,7 @@ const OwnerForm = ({ name }) => {
   const [nameField] = useField(`${name}.name`);
   const [cityField] = useField(`${name}.city`);
   const [emailField] = useField(`${name}.email`);
-  const [phoneNumberField] = useField(`${name}.phoneNumber`);
+  const [phoneNumberField] = useField(`${name}.phone`);
   return (
     <div className={"w-full flex-col mt-8"}>
       <ComponentTitle

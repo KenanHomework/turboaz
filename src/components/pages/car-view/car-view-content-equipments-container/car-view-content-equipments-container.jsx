@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 const CarViewContentEquipmentsContainer = ({ car }) => {
   const { equipments } = car;
+
   const container = {
     visible: {
       transition: {

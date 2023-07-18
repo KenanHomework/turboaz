@@ -15,6 +15,8 @@ const Autos = () => {
   const navigate = useNavigate();
 
   const [cars, setCars] = useState();
+  let page = 0;
+  const pageSize = 24;
 
   const queryParams = new URLSearchParams(location.search);
 
@@ -36,8 +38,10 @@ const Autos = () => {
   const haveQuery = query || sortType;
 
   useEffect(() => {
-    api.getCars(query, sortType).then(setCars);
-  }, [sortType]);
+    console.log("query: " + query);
+    console.log("sort: " + sortType);
+    api.getCars(query, sortType, page, pageSize).then((cars) => setCars(cars));
+  }, [query, sortType]);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

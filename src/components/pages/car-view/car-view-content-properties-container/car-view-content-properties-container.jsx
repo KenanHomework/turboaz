@@ -20,7 +20,7 @@ const CarViewContentPropertiesContainer = ({ car }) => {
         "flex flex-wrap w-full  gap-[10px] py-[30px] border-b-[1px] border-tz-border"
       }
     >
-      <CarViewProperty title={"Şəhər"} value={car.city} />
+      <CarViewProperty title={"Şəhər"} value={car.owner.city} />
       <CarViewProperty title={"Sürətlər qutusu"} value={car.gearBox} />{" "}
       <CarViewProperty title={"Marka"} value={car.vendor} />
       <CarViewProperty title={"Ötürücü"} value={car.transmission} />

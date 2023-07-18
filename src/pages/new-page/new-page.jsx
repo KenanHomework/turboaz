@@ -13,13 +13,17 @@ import { NewCarSchema } from "../../validations/index.js";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useState } from "react";
 import Loader from "../../components/loader/index.js";
+import ApiService from "../../../api/CarsApi.js";
+import { useNavigate } from "react-router-dom";
 
 const NewPage = () => {
   document.title = "Turbo.Az - Avtomobilləri buradan seçirlər";
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [animationParent] = useAutoAnimate();
+
+  const navigate = useNavigate();
+  const apiService = new ApiService();
 
   function gerYearsAsJsonOptions() {
     const currentYear = new Date().getFullYear();
@@ -136,20 +140,21 @@ const NewPage = () => {
                     name: "",
                     city: "",
                     email: "",
-                    phoneNumber: "",
+                    phone: "",
                   },
                 }}
-                onSubmit={(values, actions) => {
+                onSubmit={async (values) => {
                   setIsLoading(true);
-                  setTimeout(() => {
-                    setIsLoading(false);
-                  }, 3000);
-                  actions.resetForm();
+
+                  values.engineVolume = +values.engineVolume / 1000;
+                  const id = await apiService.createCar(values);
+                  navigate(`/autos/${id}`);
+
+                  setIsLoading(false);
                 }}
                 validationSchema={NewCarSchema}
                 ref={animationParent}
               >
-                {/* eslint-disable-next-line no-unused-vars */}
                 {() => (
                   <Form className={"w-full flex-col "} ref={animationParent}>
                     <InputLine
@@ -296,7 +301,7 @@ const NewPage = () => {
                         <NumericInput
                           name={"price"}
                           min={500}
-                          step={100}
+                          step={1}
                           title={"Qiymət "}
                           isRequired={true}
                         />

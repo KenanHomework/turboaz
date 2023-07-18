@@ -69,8 +69,8 @@ const CardContainer = ({
               engineVolume={car.engineVolume}
               mileage={car.mileage}
               city={car.city}
-              updateDate={car.updateDate}
-              imageLink={car.imageLink}
+              updateDate={car.updated}
+              imageLink={car.image}
             />
           );
         })}
