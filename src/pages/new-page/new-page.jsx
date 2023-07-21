@@ -148,6 +148,7 @@ const NewPage = () => {
 
                   values.engineVolume = +values.engineVolume / 1000;
                   const id = await apiService.createCar(values);
+                  console.log(id);
                   navigate(`/autos/${id}`);
 
                   setIsLoading(false);
@@ -267,7 +268,6 @@ const NewPage = () => {
                           title={"Yürüş"}
                           isRequired={true}
                           min={0}
-                          step={10000}
                         />
                       }
                       right={

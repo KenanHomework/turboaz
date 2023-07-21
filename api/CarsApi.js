@@ -1,5 +1,5 @@
 class ApiService {
-  _apiBaseUrl = " https://localhost:7151/api";
+  _apiBaseUrl = "https://turboazapi.azurewebsites.net/api";
 
   getCar = async (id) => {
     try {
